@@ -9,3 +9,7 @@ SERVICE_PATH_FILE = /etc/systemd/system
 
 main: main_post.c
 	@${CC} ./server/CEServer.c main_post.c -o ${OUTPUT_FILE} -lmicrohttpd
+
+clean:
+	rm *.o
+	

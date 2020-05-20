@@ -4,6 +4,7 @@
 
 #define PORT 8080
 
+
 int main(int argc, char const *argv[])
 {
     printf("Initializing Server at %d", PORT);
@@ -12,6 +13,5 @@ int main(int argc, char const *argv[])
             port_number : PORT
         };
     start_micro_http_server(serverStr);
-    
     return 0;
 }
