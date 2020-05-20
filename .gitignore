@@ -1,3 +1,8 @@
 *.o
 *.log
 *.ghc
+*.txt
+*.jpeg
+*.jpg
+*.png
+*.gif

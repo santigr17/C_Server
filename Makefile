@@ -8,7 +8,7 @@ SERVICE_PATH_FILE = /etc/systemd/system
 
 
 main: main_post.c
-	@${CC} ./server/CEServer.c main_post.c -o ${OUTPUT_FILE} -lmicrohttpd -lconfig
+	@${CC} ./server/CEServer.c config.c main_post.c -o ${OUTPUT_FILE} -lmicrohttpd `pkg-config --libs libconfig`
 
 clean:
 	rm *.o

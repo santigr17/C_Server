@@ -384,23 +384,24 @@ answer_to_connection(void *cls,
                    MHD_HTTP_BAD_REQUEST);
 }
 
-int start_micro_http_server (CEServerStr serverStr, struct MHD_Daemon *daemon)
+int start_micro_http_server (int PORT, struct MHD_Daemon *daemon)
 {
   
-  int start = 0;
+  int start = 1;
   daemon = MHD_start_daemon (
       MHD_USE_INTERNAL_POLLING_THREAD,
-      serverStr.port_number, NULL, NULL,
+      PORT, NULL, NULL,
       &answer_to_connection, NULL,
       MHD_OPTION_NOTIFY_COMPLETED,
       &request_completed, NULL,
       MHD_OPTION_END);
 
-  if (NULL == daemon)
-    return 1;
+  if (NULL == daemon){
+    printf("ERROR: No se pudo crear el daemon");
+    return 0;
+  }
   
-  
-  return 0;
+  return start;
 }
 
 int stop_micro_http_server (struct MHD_Daemon *daemon) {

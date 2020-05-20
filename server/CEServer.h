@@ -75,7 +75,7 @@ typedef struct
 /**
  * Starts an  server
  */ 
-int start_micro_http_server(CEServerStr serverStr, struct MHD_Daemon *daemon);
+int start_micro_http_server(int PORT, struct MHD_Daemon *daemon);
 /**
  * 
  */
