@@ -25,8 +25,9 @@ const char *fileexistspage = "<html><body>This file already exists.</body></html
 const char *fileioerror = "<html><body>IO error writing to disk.</body></html>";
 const char *const postprocerror = "html><head><title>Error</title></head><body>Error processing POST data</body></html>";
 
-
-
+/**
+ * INSTANCIA PRINCIPAL DEL SERVIDOR
+ */ 
 
 static int
 send_page(struct MHD_Connection *connection,
@@ -383,16 +384,11 @@ answer_to_connection(void *cls,
                    MHD_HTTP_BAD_REQUEST);
 }
 
-int start_micro_http_server(CEServerStr serverStr)
+int start_micro_http_server (CEServerStr serverStr, struct MHD_Daemon *daemon)
 {
-  struct MHD_Daemon *daemon;
-  // Simple
-  // daemon = MHD_start_daemon (MHD_USE_POLL_INTERNALLY, serverStr.port_number, NULL, NULL,
-  //                            &answer_to_connection, NULL, MHD_OPTION_END);
-
-  // Para POST
-
-  daemon = MHD_start_daemon(
+  
+  int start = 0;
+  daemon = MHD_start_daemon (
       MHD_USE_INTERNAL_POLLING_THREAD,
       serverStr.port_number, NULL, NULL,
       &answer_to_connection, NULL,
@@ -401,15 +397,12 @@ int start_micro_http_server(CEServerStr serverStr)
       MHD_OPTION_END);
 
   if (NULL == daemon)
-  {
-    printf("Error daemon culdn't start server");
     return 1;
-  }
-
-  printf("\nPress enter to stop server\n>");
-  getchar();
-  printf("stoping server ... ");
-  MHD_stop_daemon(daemon);
-  printf("Server stoped\n");
+  
+  
   return 0;
+}
+
+int stop_micro_http_server (struct MHD_Daemon *daemon) {
+  MHD_stop_daemon(daemon);
 }
