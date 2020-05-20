@@ -1,14 +1,11 @@
-all: server
+CC = gcc
+OUTPUT_FILE = ce.image.server.daemon.o
+SERVICE_NAME = ce-image-server
+SERVICE_LOG_FILE = ce-image-server.log
+SERVICE_LOG_PATH = /var/log
+SERVICE_FILE = ${SERVICE_NAME}.service
+SERVICE_PATH_FILE = /etc/systemd/system
 
-clean:
-	@rm -rf *.o
-	@rm -rf server
 
-server: main.o httpd.o
-	gcc -o server $^
-
-main.o: main.c httpd.h
-	gcc -c -o main.o main.c -I.
-
-httpd.o: httpd.c httpd.h
-	gcc -c -o httpd.o httpd.c -I.
+main: main_post.c
+	@${CC} ./server/CEServer.c main_post.c -o ${OUTPUT_FILE} -lmicrohttpd
